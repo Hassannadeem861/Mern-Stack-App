@@ -1,7 +1,7 @@
 //0.0.0.0/0 = is database ko kahi sai bhi access kya g sakai 
 //Document base dataBase
 //Mongodb schema less hai mongodb big data ko handle karna ka lya bnanya gya hai
-//hum sehema is banata hai is sai huma validation milti raha 
+//hum sehema is banata hai is sai huma validation mil gati hai
 
 // database.js
 import mongoose from "mongoose";
