@@ -6,7 +6,7 @@ import { home, register } from "../Controllers/controller.mjs";
 // import register from "../Controllers/controller.mjs";
 
 Router.get("/", home);
-Router.get("/register", register);
+Router.post("/register", register);
 
 // Router.get("/", (req, res, next) => {
 //     res.status(200).send({
