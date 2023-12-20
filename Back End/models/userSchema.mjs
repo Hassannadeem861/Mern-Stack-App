@@ -1,19 +1,23 @@
 import mongoose from "mongoose";
+import JWT from 'jsonwebtoken'
+
+const SECRET = process.env.SECRET || "Hassan Nadeem";
+
 
 const userSchema = new mongoose.Schema({
-  userName: {
+  username: {
     type: String,
     required: true,
   },
-  userEmail: {
+  email: {
     type: String,
     required: true,
   },
-  userPassword: {
+  phonenumber: {
     type: String,
     required: true,
   },
-  userConfirmPassword: {
+  password: {
     type: String,
     required: true,
   },
