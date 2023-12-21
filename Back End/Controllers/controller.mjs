@@ -5,9 +5,19 @@
 // functional approach aur class-based approach.
 
 // What is JWT
-// authentication ka matlab hai ap kisi ko identify kar raha ho kya ya wohi user hai ya nahi
-// authorization ka matlab hain ovens ap nai identify kar lya ka ya wohi person hai ya nahi 
+// authentication ka matlab hai ka ap kisi ko identify kar raha ho kya ya wohi user hai ya nahi
+// authorization ka matlab hain ovens ap nai identify kar lya ka ya wohi person hai ya nahi
 // to is ki base pa ap is person ko kuch access do ga
+
+// Headers
+// token ka bhi go information rakta ho
+// Payload
+// payload main hum user ki information add kar sakta hain asa identity
+// Signature
+// signature ka matla hain gaha par ak asa signature ho ga ya value ho ga go server ko pata hota hain
+
+// JWT NOT STORE IN DATABASE
+// jwt ka token ko apna cliet site browser par store karna hain like localStorge | cookies
 
 import userModel from "../models/userSchema.mjs";
 import { stringToHash, varifyHash } from "bcrypt-inzi";
@@ -57,7 +67,7 @@ let register = async (req, res) => {
       }
 
       // user not already exist
-      const userCreated = await userModel.create({
+      var userCreated = await userModel.create({
         username,
         email,
         password: convertToHash,
@@ -66,7 +76,13 @@ let register = async (req, res) => {
       console.log("userCreated: ", userCreated);
       console.log("data saved in mongodb");
     }
-    res.status(201).json({ msg: req.body });
+    res.status(201).json({
+      msg: "Registration successful",
+      token: await userCreated?.generateToken(),
+      userId: userCreated?._id?.toString(),
+    });
+    // console.log("token: ",token )
+    // res.status(201).json({ msg: req.body });
   } catch (error) {
     console.log("error: ", error);
     res.status(500).send("internal server error");
@@ -74,43 +90,6 @@ let register = async (req, res) => {
 };
 
 export { home, register };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // console.log("req.body: ", req.body);
 // const { userName, userEmail, userPassword, userPhoneNumber } = req.body;
