@@ -21,7 +21,7 @@
 
 import userModel from "../models/userSchema.mjs";
 import { stringToHash, varifyHash } from "bcrypt-inzi";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 // ++++++++++++++++++++++++++++
 // Home Controller
 // ++++++++++++++++++++++++++++
@@ -35,7 +35,7 @@ let home = async (req, res) => {
 };
 
 // ++++++++++++++++++++++++++++
-// Register Controller
+// USER Register LOGIC
 // ++++++++++++++++++++++++++++
 
 let register = async (req, res) => {
@@ -69,7 +69,7 @@ let register = async (req, res) => {
       }
 
       // user not already exist
-    userCreated = await userModel.create({
+      userCreated = await userModel.create({
         username,
         email,
         password: convertToHash,
@@ -78,23 +78,57 @@ let register = async (req, res) => {
       // console.log("userCreated: ", userCreated);
       console.log("data saved in mongodb");
     }
-
   } catch (error) {
     console.log("error: ", error);
     return res.status(500).send("internal server error");
   }
   // If no error occurred, send the response
   res.status(201).json({
-    "msg": "Registration successful",
-    "token": await userCreated?.generateToken(),
-    "userId": userCreated?._id?.toString(),
+    msg: "Registration successful",
+    token: await userCreated?.generateToken(),
+    userId: userCreated?._id?.toString(),
   });
-  console.log("userCreated: ", userCreated)
- 
+  console.log("userCreated: ", userCreated);
 };
 
+// ++++++++++++++++++++++++++++
+// USER LOGIN LOGIC
+// ++++++++++++++++++++++++++++
 
-export { home, register };
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    console.log("Email data", req.body);
+
+    const userExist = await userModel.findOne({ email: email });
+    console.log("userExist: ", userExist);
+
+    if (!userExist) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    } 
+      const comparePassword = await bcrypt.compare(
+        password,
+        userExist.password
+      );
+      console.log("Match Password: ", comparePassword);
+    
+
+    if (comparePassword) {
+      res.status(200).json({
+        msg: "Login successful",
+        token: await userExist?.generateToken(),
+        userId: userExist?._id?.toString(),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email and password" });
+    }
+  } catch (error) {
+    console.log("error: ", error);
+    return res.status(500).send("internal server error");
+  }
+};
+
+export { home, register, login };
 
 // console.log("req.body: ", req.body);
 // const { userName, userEmail, userPassword, userPhoneNumber } = req.body;
