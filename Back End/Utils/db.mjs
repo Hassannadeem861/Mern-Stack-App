@@ -9,8 +9,7 @@ import mongoose from "mongoose";
 // ya mera database taak gana ki rasta hain
 // connection string
 // const URI = "mongodb://127.0.0.1:27017/my_database";
-const MONGODB_URI = 
-  process.env.MONGODB_URI ||
+const MONGODB_URI = process.env.DATABASE_URI ||
   "mongodb+srv://Hassan:Hassan741883@cluster0.jjpseix.mongodb.net/my_database?retryWrites=true&w=majority";
 
 // connect to database

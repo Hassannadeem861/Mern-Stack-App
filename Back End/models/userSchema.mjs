@@ -30,26 +30,33 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// json web token 
+// json web token
 // instance methode
 userSchema.methods.generateToken = async function () {
   try {
-    return jwt.sign(
+    const token = jwt.sign(
       {
-        "userId": this?._id.toString(),
-        "email": this?.email,
-        "isAdmin": this?.isAdmin,
+        userId: this?._id?.toString(),
+        email: this?.email,
+        isAdmin: this?.isAdmin,
       },
+
       process.env.JWT_SECRET_KEY,
-      // process.env.JWT_SECRET_KEY || "Hassan Nadeem",
       {
         expiresIn: "30d",
-      });
-    // console.log("this:", this);
-  } catch (error) {
-    console.log("error: ", error);
-    res.status(401).send({ message: "Incorrect email or password" });
+      }
+    );
+    console.log("token:", token);
+    console.log("this:", this);
+    // console.log("userId:", userId);
+    // console.log("email:", email);
+    // console.log("isAdmin:", isAdmin);
+    // console.log("JWT_SECRET_KEY:", JWT_SECRET_KEY);
 
+    return token;
+  } catch (error) {
+    console.log("Token Generation Error: ", error);
+    // res.status(401).send({ message: "Incorrect email or password" });
   }
 };
 

@@ -2,7 +2,7 @@ console.log(`MERN STACK APP IS RUNNING`);
 import express from "express";
 import dotenv from "dotenv";
 // import cors from "cors";
-// import bodyParser from "body-parser";
+import bodyParser from 'body-parser';
 // import parseJson from 'parse-json';
 import cookieParser from 'cookie-parser';
 import authRouter from "./Router/auth.mjs";
@@ -10,6 +10,9 @@ import connectDB from "./Utils/db.mjs";
 
 
 const app = express();
+// Body parser middleware
+app.use(bodyParser.json()); // JSON body parser
+app.use(bodyParser.urlencoded({ extended: true }))
 dotenv.config();
 app.use(cookieParser());
 app.use(express.json()); // Middle ware body parser

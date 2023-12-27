@@ -39,9 +39,11 @@ let home = async (req, res) => {
 // ++++++++++++++++++++++++++++
 
 let register = async (req, res) => {
+  let userCreated; // Declare userCreated outside try block
+
   try {
-    console.log("req.body: ", req.body);
     const { username, email, password, phonenumber } = req.body;
+    console.log("req.body: ", req.body);
     // check if user already exist // query email user
     const userExist = await userModel.findOne({ email: email });
     if (userExist) {
@@ -56,7 +58,7 @@ let register = async (req, res) => {
       console.log("convertToHash: ", convertToHash);
 
       const result = await varifyHash(
-        "convertToHash",
+        convertToHash,
         "$2a$10$W3/bbpG0rexRwKBabxbp7efehubSnxDLM7OCEj0MEPAac98EUa9mW"
       );
 
@@ -67,27 +69,30 @@ let register = async (req, res) => {
       }
 
       // user not already exist
-      var userCreated = await userModel.create({
+    userCreated = await userModel.create({
         username,
         email,
         password: convertToHash,
         phonenumber,
       });
-      console.log("userCreated: ", userCreated);
+      // console.log("userCreated: ", userCreated);
       console.log("data saved in mongodb");
     }
-    res.status(201).json({
-      msg: "Registration successful",
-      token: await userCreated?.generateToken(),
-      userId: userCreated?._id?.toString(),
-    });
-    // console.log("token: ",token )
-    // res.status(201).json({ msg: req.body });
+
   } catch (error) {
     console.log("error: ", error);
-    res.status(500).send("internal server error");
+    return res.status(500).send("internal server error");
   }
+  // If no error occurred, send the response
+  res.status(201).json({
+    "msg": "Registration successful",
+    "token": await userCreated?.generateToken(),
+    "userId": userCreated?._id?.toString(),
+  });
+  console.log("userCreated: ", userCreated)
+ 
 };
+
 
 export { home, register };
 
