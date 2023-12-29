@@ -15,7 +15,7 @@ app.use(bodyParser.json()); // JSON body parser
 app.use(bodyParser.urlencoded({ extended: true }))
 dotenv.config();
 app.use(cookieParser());
-app.use(express.json()); // Middle ware body parser
+app.use(express.json()); // Middle ware JSON body parser
 // parseJson(json, 'foo.json');
 
 // app.use(cors());
@@ -27,7 +27,7 @@ app.route("/").get((req, res) => {
   res.status(200).send("This is home page");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 connectDB().then(() => {
 app.listen(PORT, () => {
   console.log(`Example server listening on port ${PORT}`);

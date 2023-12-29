@@ -43,7 +43,7 @@ let register = async (req, res) => {
 
   try {
     const { username, email, password, phonenumber } = req.body;
-    console.log("req.body: ", req.body);
+    console.log("req.bodyRegistation : ", req.body);
     // check if user already exist // query email user
     const userExist = await userModel.findOne({ email: email });
     if (userExist) {
@@ -88,7 +88,7 @@ let register = async (req, res) => {
     token: await userCreated?.generateToken(),
     userId: userCreated?._id?.toString(),
   });
-  console.log("userCreated: ", userCreated);
+  console.log("userCreated Registation: ", userCreated);
 };
 
 // ++++++++++++++++++++++++++++
@@ -101,15 +101,17 @@ const login = async (req, res, next) => {
     console.log("Email data", req.body);
 
     const userExist = await userModel.findOne({ email: email });
-    console.log("userExist: ", userExist);
+    console.log("userExist login: ", userExist);
 
     if (!userExist) {
       return res.status(400).json({ message: "Invalid Credentials" });
     } 
-      const comparePassword = await bcrypt.compare(
-        password,
-        userExist.password
-      );
+      // const comparePassword = await bcrypt.compare(
+      //   password,
+      //   userExist.password
+      // );
+
+      const comparePassword = await userExist.comparePassword(password)
       console.log("Match Password: ", comparePassword);
     
 

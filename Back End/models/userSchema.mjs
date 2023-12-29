@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+
 
 // const SECRET = process.env.SECRET || "Hassan Nadeem";
 
@@ -29,6 +31,11 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// Compare Password
+userSchema.methods.comparePassword = async function(password){
+  return bcrypt.compare(password, this.password );
+}
 
 // json web token
 // instance methode
