@@ -12,22 +12,23 @@ const signupSchema = z.object({
     .string({ required_error: "Email is required" })
     .trim()
     .email({ message: "Invalid email address" })
-    .min(20, { message: "Email must be at lest of 20 charactors.." })
+    .min(10, { message: "Email must be at lest of 10 charactors.." })
     .max(30, { message: "Email must be at lest of 30 charactors.." }),
 
   password: z
     .string({ required_error: "Password is required" })
     .trim()
     // .email({ message: "Invalid email address" })
-    .min(6, { message: "Password must be at lest of 6 charactors.." })
+    .min(3, { message: "Password must be at lest of 3 charactors.." })
     .max(30, { message: "Password must be at lest of 30 charactors.." }),
 
   phonenumber: z
     .string({ required_error: "PhoneNumber is required" })
     .trim()
     // .email({ message: "Invalid email address" })
-    .min(15, { message: "PhoneNumber must be at lest of 15 charactors.." })
+    .min(11, { message: "PhoneNumber must be at lest of 11 charactors.." })
     .max(30, { message: "PhoneNumber must be at lest of 30 charactors.." }),
 });
+console.log("signupSchema: ", signupSchema);
 
 export default signupSchema;

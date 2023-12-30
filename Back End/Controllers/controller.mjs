@@ -132,6 +132,34 @@ const login = async (req, res, next) => {
 
 export { home, register, login };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // console.log("req.body: ", req.body);
 // const { userName, userEmail, userPassword, userPhoneNumber } = req.body;
 // console.log("data: ", data)
