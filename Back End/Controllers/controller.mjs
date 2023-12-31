@@ -21,7 +21,7 @@
 
 import userModel from "../models/userSchema.mjs";
 import { stringToHash, varifyHash } from "bcrypt-inzi";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 // ++++++++++++++++++++++++++++
 // Home Controller
 // ++++++++++++++++++++++++++++
@@ -79,8 +79,9 @@ let register = async (req, res) => {
       console.log("data saved in mongodb");
     }
   } catch (error) {
+    next(error);
     console.log("error: ", error);
-    return res.status(500).send("internal server error");
+    // return res.status(500).send("internal server error");
   }
   // If no error occurred, send the response
   res.status(201).json({
@@ -104,16 +105,15 @@ const login = async (req, res, next) => {
     console.log("userExist login: ", userExist);
 
     if (!userExist) {
-      return res.status(400).json({ message: "Invalid Credentials" });
-    } 
-      // const comparePassword = await bcrypt.compare(
-      //   password,
-      //   userExist.password
-      // );
+      return res.status(400).json({ message: "Invalid Email" });
+    }
+    // const comparePassword = await bcrypt.compare(
+    //   password,
+    //   userExist.password
+    // );
 
-      const comparePassword = await userExist.comparePassword(password)
-      console.log("Match Password: ", comparePassword);
-    
+    const comparePassword = await userExist.comparePassword(password);
+    console.log("Match Password: ", comparePassword);
 
     if (comparePassword) {
       res.status(200).json({
@@ -125,40 +125,13 @@ const login = async (req, res, next) => {
       res.status(401).json({ message: "Invalid email and password" });
     }
   } catch (error) {
+    next(error);
     console.log("error: ", error);
-    return res.status(500).send("internal server error");
+    // return res.status(500).send("internal server error");
   }
 };
 
 export { home, register, login };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // console.log("req.body: ", req.body);
 // const { userName, userEmail, userPassword, userPhoneNumber } = req.body;

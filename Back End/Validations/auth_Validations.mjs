@@ -19,7 +19,7 @@ const signupSchema = z.object({
     .string({ required_error: "Password is required" })
     .trim()
     // .email({ message: "Invalid email address" })
-    .min(3, { message: "Password must be at lest of 3 charactors.." })
+    .min(6, { message: "Password must be at lest of 6 charactors.." })
     .max(30, { message: "Password must be at lest of 30 charactors.." }),
 
   phonenumber: z
@@ -31,4 +31,21 @@ const signupSchema = z.object({
 });
 console.log("signupSchema: ", signupSchema);
 
-export default signupSchema;
+const loginSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .trim()
+    .email({ message: "Invalid email address" })
+    .min(10, { message: "Email must be at lest of 10 charactors.." })
+    .max(30, { message: "Email must be at lest of 30 charactors.." }),
+
+  password: z
+    .string({ required_error: "Password is required" })
+    .trim()
+    // .email({ message: "Invalid email address" })
+    .min(6, { message: "Password must be at lest of 6 charactors.." })
+    .max(30, { message: "Password must be at lest of 30 charactors.." }),
+});
+
+// export  default signupSchema;
+export  {signupSchema, loginSchema};
