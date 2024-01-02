@@ -1,0 +1,12 @@
+.PageNotFound h1{
+    margin: 2.3em;
+    padding: 1em;
+    border-radius: 5px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 5rem;
+    font-weight: 500;
+    font-family: sans-serif;
+}
+
