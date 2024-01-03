@@ -6,7 +6,7 @@ import Contact from "./Pages/Contact/Contact";
 import Service from "./Pages/Service/Service";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
-// import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import Navbar from "./Components/Navbar/Navbar";
 import "./App.css";
 
@@ -22,7 +22,7 @@ function App() {
           <Route path="/service" element={<Service />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={Navigator='/'} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
     </div>

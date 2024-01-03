@@ -1,12 +1,25 @@
-.PageNotFound h1{
-    margin: 2.3em;
-    padding: 1em;
-    border-radius: 5px;
-    text-align: center;
-    background-color: black;
-    color: white;
-    font-size: 5rem;
-    font-weight: 500;
-    font-family: sans-serif;
+div h1 {
+  font-size: 80px;
+  font-weight: 800;
+  font-family: sans-serif;
+  color: white;
+}
+div h4 {
+  font-size: 25px;
+  font-weight: 800;
+  font-family: sans-serif;
+  color: white;
 }
 
+p{
+    color: white;
+}
+
+.container-content {
+  margin: 5em auto;
+  text-align: center;
+  background-color: black;
+  width: 800px;
+  height: 300px;
+  border-radius: 5px;
+}
