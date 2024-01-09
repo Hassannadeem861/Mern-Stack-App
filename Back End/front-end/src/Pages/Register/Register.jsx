@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import registrationImage from "../../Images/Registration Image.png";
+import axios from "axios";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -19,19 +20,30 @@ const Register = () => {
     // console.log("name: ", name);
     // console.log("value: ", value);
 
-    setUser({
-      ...user,
+    // setUser({
+    //   ...user,
+    //   [name]: value,
+    // });
+
+    setUser((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   // Submit Handler
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     // console.log(e);
-    console.log("user: ", user);
+    console.log("Registration Successful: ", user);
+   
+    try {
+      
+    } catch (error) {
+      
+    }
+
   };
-  // console.log("submitHandler: ", submitHandler);
 
   return (
     <div>
@@ -77,7 +89,7 @@ const Register = () => {
                       placeholder="Enter your email"
                       autoComplete="on"
                       minLength={5}
-                      maxLength={30}
+                      maxLength={50}
                       // defaultValue={user.email}
                       value={user.email}
                       onChange={handleInput}
