@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import registrationImage from "../../Images/Registration Image.png";
-import axios from "axios";
+// import axios from "axios";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -36,13 +36,20 @@ const Register = () => {
     e.preventDefault();
     // console.log(e);
     console.log("Registration Successful: ", user);
-   
-    try {
-      
-    } catch (error) {
-      
-    }
 
+    try {
+      const response = await fetch(`http://localhost:3001/api/v1/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      console.log("Registration-Response: ", response);
+    } catch (error) {
+      console.log("Registration Error: ", error);
+    }
   };
 
   return (

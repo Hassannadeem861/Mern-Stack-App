@@ -29,7 +29,7 @@ const signupSchema = z.object({
     .min(11, { message: "PhoneNumber must be at lest of 11 charactors.." })
     .max(30, { message: "PhoneNumber must be at lest of 30 charactors.." }),
 });
-console.log("signupSchema: ", signupSchema);
+// console.log("signupSchema: ", signupSchema);
 
 const loginSchema = z.object({
   email: z

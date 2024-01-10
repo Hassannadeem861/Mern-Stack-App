@@ -12,15 +12,22 @@ import errorMidleWare from "./middle-wares/error-middleware.mjs";
 
 
 const app = express();
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  credentials: true
+} 
+
+app.use(cors(corsOptions));
+app.use(express.json()); // Middle ware JSON body parser
 // Body parser middleware
 app.use(bodyParser.json()); // JSON body parser
-app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
-app.use(cookieParser());
-app.use(express.json()); // Middle ware JSON body parser
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser());
 // parseJson(json, 'foo.json');
 
-app.use(cors());
+
 // app.use(bodyParser.urlencoded({extended: true}));
 
 app.use("/api/v1/auth", authRouter);
